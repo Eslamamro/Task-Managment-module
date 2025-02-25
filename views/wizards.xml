@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+    <record id="view_client_additions_wizard" model="ir.ui.view">
+        <field name="name">client.additions.wizard.form</field>
+        <field name="model">client.additions.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Tax Types">
+                <group>
+                    <field name="client_id"/>
+                    <separator string="Select Tax Categories"/>
+                    <field name="is_income"/>
+                    <field name="is_vat"/>
+                    <field name="is_salary"/>
+                    <field name="is_stamp"/>
+                    <field name="is_real_state"/>
+                    <field name="is_withdrawal"/>
+                </group>
+                <footer>
+                    <button string="Close" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    </data>
+</odoo>

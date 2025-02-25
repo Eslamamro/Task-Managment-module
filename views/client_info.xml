@@ -1,0 +1,129 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+        <record id="view_client_data_form" model="ir.ui.view">
+            <field name="name">client.data.form</field>
+            <field name="model">client.info</field>
+            <field name="arch" type="xml">
+                <form string="Client Data">
+                    <header>
+                        <button name="open_client_additions_wizard" type="object" string="Manage Tax Types" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name" string="Client name"/>
+                            <field name="phone_number" string="Phone Number"/>
+                            <field name="address" string="Address"/>
+                            <field name="tax_id" string="TaxID"/>
+                            <field name="e_invoicing" string="Einvoicing"/>
+                            <field name="username" string="Username"/>
+                            <field name="email" string="Email"/>
+                            <field name="password_1" string="Password1"/>
+                            <field name="password_2" string="Password2"/>
+                        </group>
+                        <notebook>
+
+                            <!-- income page  -->
+
+                            <page string="Income" invisible="is_income == False">
+                               <field name="income_id" widget="one2many">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="note"/>
+                                        <field name="documents_id">
+                                            <list editable="bottom">
+                                                <field name="name"/>
+                                                <field name="upload" filename="name"/>
+                                            </list >
+                                        </field>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Vat page  -->
+
+                            <page string="Vat">
+                               <field name="vat_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="note" widget="text"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Salary page  -->
+
+                            <page string="Salary">
+                               <field name="salary_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="note" widget="text"/>
+                                    </list>
+                                </field>
+                            </page> 
+
+                            <!-- Stamp page  -->
+
+                            <page string="Stamp">
+                               <field name="stamp_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="note" widget="text"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- RealState page  --> 
+
+                            <page string="Real State">
+                               <field name="real_state_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="note" widget="text"/>
+                                    </list>
+                                </field>
+                            </page> 
+
+                            <!-- Withdrawal page  -->
+
+                            <page string="Withdrawal">
+                               <field name="withdrawal_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="note" widget="text"/>
+                                    </list>
+                                </field>
+                            </page>  
+                        </notebook>
+                              
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="tax__management.action_window">
+      <field name="name">Tax_Management window</field>
+      <field name="res_model">tax__management.tax__management</field>
+      <field name="view_mode">list,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="tax__management.action_server">
+      <field name="name">Tax_Management server</field>
+      <field name="model_id" ref="model_tax__management_tax__management"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+  </data>
+</odoo>

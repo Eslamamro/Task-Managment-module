@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_client_info,client.info,model_client_info,base.group_user,1,1,1,1
+access_income,income,model_income,base.group_user,1,1,1,1
+access_vat,vat,model_vat,base.group_user,1,1,1,1
+access_salary,salary,model_salary,base.group_user,1,1,1,1
+access_stamp,stamp,model_stamp,base.group_user,1,1,1,1
+access_real_state,real_state,model_real_state,base.group_user,1,1,1,1
+access_withdrawal,withdrawal,model_withdrawal,base.group_user,1,1,1,1
+access_documents,documents,model_documents,base.group_user,1,1,1,1
+access_client_additions_wizard,client_additions_wizard,model_client_additions_wizard,base.group_user,1,1,1,1
+access_task_wizard,task,model_task,base.group_user,1,1,1,1
+

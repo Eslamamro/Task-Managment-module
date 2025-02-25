@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+
+
+    <!-- explicit Form view definition -->
+        <record id="view_task_form" model="ir.ui.view">
+            <field name="name">client.task.form</field>
+            <field name="model">task</field>
+            <field name="arch" type="xml">
+            <form string="To Do">
+                <field name="client_id"/>
+            </form>
+            </field>
+        </record>
+    </data>
+    
+</odoo>
