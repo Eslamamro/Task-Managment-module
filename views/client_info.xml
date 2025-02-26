@@ -25,7 +25,7 @@
 
                             <!-- income page  -->
 
-                            <page string="Income" invisible="is_income == False">
+                            <page string="Income">
                                <field name="income_id" widget="one2many">
                                     <list>
                                         <field name="date"/>

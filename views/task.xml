@@ -8,7 +8,10 @@
             <field name="model">task</field>
             <field name="arch" type="xml">
             <form string="To Do">
-                <field name="client_id"/>
+                <sheet>
+                    <field name="client_id" string="Name"/>
+                </sheet>
+                
             </form>
             </field>
         </record>

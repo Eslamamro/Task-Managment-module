@@ -21,7 +21,7 @@ class Client(models.Model):
     real_state_id = fields.One2many('real_state', 'client_id')  
     withdrawal_id = fields.One2many('withdrawal', 'client_id')
     client_additions_id = fields.One2many('client.additions.wizard', 'client_id')  
-    
+    task_id = fields.One2many('task', 'client_id')
     is_income = fields.Boolean(related='client_additions_id.is_income')
 
     def open_client_additions_wizard(self):
@@ -35,6 +35,8 @@ class Client(models.Model):
             'context': {'default_client_id': self.id}  # Passes the selected client ID
         }
 
+
+    
 # Wizard to add or remove client taxes
 class ClientAdditionsWizard(models.TransientModel):
     _name = 'client.additions.wizard'
