@@ -10,22 +10,63 @@
                         <button name="open_client_additions_wizard" type="object" string="Manage Tax Types" class="oe_highlight"/>
                     </header>
                     <sheet>
-                        <group>
-                            <field name="name" string="Client name"/>
-                            <field name="phone_number" string="Phone Number"/>
-                            <field name="address" string="Address"/>
-                            <field name="tax_id" string="TaxID"/>
-                            <field name="e_invoicing" string="Einvoicing"/>
-                            <field name="username" string="Username"/>
-                            <field name="email" string="Email"/>
-                            <field name="password_1" string="Password1"/>
-                            <field name="password_2" string="Password2"/>
-                        </group>
+                        <h1 class="d-flex flex-row align-items-center">
+                            <field name="name" default_focus="1" placeholder="Client name" style="font-size: min(4vw, 2.2rem);" />
+                        </h1>
+                            <group string="Personal Info ." class="fw-bold" > 
+                                    <field name="phone_number" placeholder="+20" />
+                                    <field name="address" placeholder="city"/>
+                                    <field name="tax_number" placeholder="e.g. BE0477472701"/>
+                                    <field name="e_invoicing"/>
+                            </group>
+                            <br/>
+                            <group>
+                            <group string="Credentials" decoration-bf="1">
+                              <field name="username"/>
+                              <field name="email" placeholder="example@gmail.com"/>
+                              <field name="password_1" placeholder=""/>
+                              <field name="password_2"/>
+                            </group>
+                            <group string="Egyptian Tax Authority">
+                                <a href="https://auth.eta.gov.eg:8080/auth/realms/e-tax/protocol/openid-connect/auth?client_id=etax-sso
+                                &amp;redirect_uri=https%3A%2F%2Fwww.eta.gov.eg%2Far%2Fhome&amp;state=5a044569-c907-4ead-8789-da2bc139bf8f&amp;response_mode
+                                =fragment&amp;response_type=code&amp;scope=openid&amp;nonce=f137ea73-1bb2-47f1-81af-2f1cab601825"
+                                 target="_blank" class="oe_button oe_link" widget="url">
+                                    Egyptian Tax Authority Website
+                                    <span class="fa fa-external-link"/>
+                                </a>
+                            </group>
+                            </group>
+                            <br/>
+                            <group>
+                              <group string="Added Value">
+                                <field name="registration_number" placeholder="e.g.110/205/023"/>
+                                <field name="date" placeholder="MM/DD/YY"/>
+                                <a href="https://eservice.incometax.gov.eg/etax" target="_blank" class="oe_button oe_link" widget="url">
+                                    Added Value Website
+                                    <span class="fa fa-external-link"/>
+                                </a>
+                              </group>
+
+                              <group string="E-invoicing" invisible="e_invoicing == False">
+                                <field name="registration_company"/>
+                                <field name="token_pass"/>
+                                <field name="portal_request"/>
+                                <a href="https://id.eta.gov.eg/Account/Login?ReturnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id
+                                %3D9A029E3B-7403-4B25-8850-AB67E1FD92AB%26redirect_uri%3Dhttps%253A%252F%252Finvoicing.eta.gov.eg%252Flogin%26response_
+                                type%3Did_token%2520token%26scope%3Dopenid%2520profile%2520publicportals.bff.api%26state%3D0f031ae44f874b9bbb7bd17aa36ce8
+                                bb%26nonce%3Dde53ae8c43be41c89a8832176e8b53d5" target="_blank" class="oe_button oe_link" widget="url">
+                                    E-invoicing Website 
+                                    <span class="fa fa-external-link"/>
+                                </a>
+                              </group>
+                            </group>
+                            <br/>
                         <notebook>
 
                             <!-- income page  -->
 
-                            <page string="Income">
+                            <page string="Income" invisible="is_income == False">
                                <field name="income_id" widget="one2many">
                                     <list>
                                         <field name="date"/>
@@ -42,7 +83,7 @@
 
                             <!-- Vat page  -->
 
-                            <page string="Vat">
+                            <page string="Vat" invisible="is_vat == False">
                                <field name="vat_id">
                                     <list>
                                         <field name="date"/>
@@ -53,7 +94,7 @@
 
                             <!-- Salary page  -->
 
-                            <page string="Salary">
+                            <page string="Salary" invisible="is_salary == False">
                                <field name="salary_id">
                                     <list>
                                         <field name="date"/>
@@ -64,7 +105,7 @@
 
                             <!-- Stamp page  -->
 
-                            <page string="Stamp">
+                            <page string="Stamp" invisible="is_stamp == False">
                                <field name="stamp_id">
                                     <list>
                                         <field name="date"/>
@@ -75,7 +116,7 @@
 
                             <!-- RealState page  --> 
 
-                            <page string="Real State">
+                            <page string="Real State" invisible="is_real_state == False">
                                <field name="real_state_id">
                                     <list>
                                         <field name="date"/>
@@ -86,7 +127,7 @@
 
                             <!-- Withdrawal page  -->
 
-                            <page string="Withdrawal">
+                            <page string="Withdrawal" invisible="is_withdrawal == False">
                                <field name="withdrawal_id">
                                     <list>
                                         <field name="date"/>

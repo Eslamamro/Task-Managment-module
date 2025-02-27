@@ -16,6 +16,7 @@
                     <field name="is_withdrawal"/>
                 </group>
                 <footer>
+                    <button name="save_action" string="Save" type="object" class="btn-primary"/>
                     <button string="Close" class="oe_link" special="cancel"/>
                 </footer>
             </form>

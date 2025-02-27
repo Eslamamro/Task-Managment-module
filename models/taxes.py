@@ -5,8 +5,6 @@ from datetime import datetime, timedelta
 
 class Income(models.Model):
     _name = 'income'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
-
     
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
