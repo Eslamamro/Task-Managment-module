@@ -70,7 +70,8 @@
                                <field name="income_id" widget="one2many">
                                     <list>
                                         <field name="date"/>
-                                        <field name="note"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="note" invisible="1"/>
                                     </list>
                                 </field>
                             </page>

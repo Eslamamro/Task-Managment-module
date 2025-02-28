@@ -6,10 +6,11 @@ from datetime import datetime, date
 class Income(models.Model):
     _name = 'income'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-
+    
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
-
+    
+    summary = fields.Many2many('task.tag', string='Summary')  # Changed to Many2many
     client_id = fields.Many2one('client.info', string='Client Name')
     task_id = fields.Many2one('task', ondelete='cascade', unique=True)
 
@@ -50,7 +51,7 @@ class Income(models.Model):
             'res_model': self._name,
             'res_id': self.id,
             'activity_type_id': activity_type.id,
-            'summary': 'Follow-up Reminder',
+            'summary': self.summary,
             'note': 'This is an automated activity.',
             'date_deadline': deadline_date,  # Corrected: Now uses a specific datetime
             'user_id': self.env.user.id,
@@ -401,3 +402,30 @@ class Withdrawal(models.Model):
         record._schedule_activity(tax_category='withdrawal')
 
         return record
+
+class TaskTag(models.Model):
+    _name = 'task.tag'
+    _description = 'Task Tag'
+
+    name = fields.Char(string="Tag Name", required=True)
+    color = fields.Integer(string="Color")
+
+    @api.model
+    def _create_default_tags(self):
+        """Create default tags with Odoo colors."""
+        default_tags = [
+            {'name': 'Urgent', 'color': 1},  # Red
+            {'name': 'Important', 'color': 2},  # Green
+            {'name': 'Low Priority', 'color': 3},  # Blue
+            {'name': 'Review', 'color': 4},  # Yellow
+        ]
+
+        for tag in default_tags:
+            if not self.search([('name', '=', tag['name'])]):
+                self.create(tag)
+
+    @api.model
+    def init(self):
+        """Automatically create default tags when the module is installed."""
+        self._create_default_tags()
+

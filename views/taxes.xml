@@ -12,10 +12,12 @@
                     <group>
                         <field name="client_id"/>
                         <field name="date" string="Date"/>
+                        <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </group>
                     <group>
                         <field name="note" string="Notes"/>
                     </group>
+                    
                 </sheet>
             </form>
             </field>
@@ -28,6 +30,7 @@
             <list string="Income">
                 <field name="client_id"/>
                 <field name="date" string="Date"/>
+                <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
             </list>
             </field>
         </record>
