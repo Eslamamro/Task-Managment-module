@@ -1,5 +1,4 @@
 from odoo import models, fields, api
-
 # Client information and all relations are included
 class Client(models.Model):
     _name = 'client.info'  

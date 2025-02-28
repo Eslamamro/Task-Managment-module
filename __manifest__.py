@@ -28,6 +28,7 @@ Long description of module's purpose
         'views/menu_items.xml',
         'views/wizards.xml',
         'views/task.xml',
+        'views/taxes.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

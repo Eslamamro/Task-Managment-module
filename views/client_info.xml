@@ -71,12 +71,6 @@
                                     <list>
                                         <field name="date"/>
                                         <field name="note"/>
-                                        <field name="documents_id">
-                                            <list editable="bottom">
-                                                <field name="name"/>
-                                                <field name="upload" filename="name"/>
-                                            </list >
-                                        </field>
                                     </list>
                                 </field>
                             </page>
@@ -139,6 +133,21 @@
                               
                     </sheet>
                 </form>
+            </field>
+        </record>
+
+        <record id="view_client_data_list" model="ir.ui.view">
+            <field name="name">client.data.list</field>
+            <field name="model">client.info</field>
+            <field name="arch" type="xml">
+                <list string="Client Data">
+                    <field name="name" string="Client Name"/>
+                    <field name="phone_number" string="Phone Number"/>
+                    <field name="address" string="Address"/>
+                    <field name="tax_number" string="Tax Number"/>
+                    <field name="email" string="Email"/>
+                    <field name="e_invoicing" string="E-Invoicing"/>
+                </list>
             </field>
         </record>
 

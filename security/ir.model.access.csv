@@ -6,7 +6,6 @@ access_salary,salary,model_salary,base.group_user,1,1,1,1
 access_stamp,stamp,model_stamp,base.group_user,1,1,1,1
 access_real_state,real_state,model_real_state,base.group_user,1,1,1,1
 access_withdrawal,withdrawal,model_withdrawal,base.group_user,1,1,1,1
-access_documents,documents,model_documents,base.group_user,1,1,1,1
 access_client_additions_wizard,client_additions_wizard,model_client_additions_wizard,base.group_user,1,1,1,1
 access_task_wizard,task,model_task,base.group_user,1,1,1,1
 
