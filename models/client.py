@@ -2,9 +2,11 @@ from odoo import models, fields, api
 # Client information and all relations are included
 class Client(models.Model):
     _name = 'client.info'  
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # Client Information
-    name = fields.Char(size=50, required=False, string='Name')
+    name = fields.Char(size=50, string='Name')
+    image_1920 = fields.Image("Image", max_width=1920, max_height=1920)
     phone_number = fields.Char(size=11, string='Phone Number')
     address = fields.Char(string='Address')
     tax_number = fields.Char(string='Tax ID')
@@ -28,6 +30,7 @@ class Client(models.Model):
         required=False,
         default='not-active'
     )
+
 
     # All Client Tax Categories
     income_id = fields.One2many('income', 'client_id')  

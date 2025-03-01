@@ -1,0 +1,243 @@
+<odoo>
+<!-- Define Permission Category -->
+    <record id="tax_category" model="ir.module.category">
+        <field name="name">Tax Managements Permissions</field>
+    </record>
+
+
+<!-- Define User Group -->
+    <record id="tax_category_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="tax__management.tax_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+
+<!-- Define Admin Group -->
+<!-- inherits from user Group -->
+    <record id="tax_category_admin" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id" ref="tax__management.tax_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+
+<!-- Access Rights for Client Info
+<record id="access_client_info_user" model="ir.model.access">
+    <field name="name">Client Info User Access</field>
+    <field name="model_id" ref="model_client_info"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_client_info_admin" model="ir.model.access">
+    <field name="name">Client Info Admin Access</field>
+    <field name="model_id" ref="model_client_info"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+Access Rights for Income
+<record id="access_income_user" model="ir.model.access">
+    <field name="name">Income User Access</field>
+    <field name="model_id" ref="model_income"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_income_admin" model="ir.model.access">
+    <field name="name">Income Admin Access</field>
+    <field name="model_id" ref="model_income"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+Access Rights for VAT
+<record id="access_vat_user" model="ir.model.access">
+    <field name="name">VAT User Access</field>
+    <field name="model_id" ref="model_vat"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_vat_admin" model="ir.model.access">
+    <field name="name">VAT Admin Access</field>
+    <field name="model_id" ref="model_vat"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+Access Rights for Salary
+<record id="access_salary_user" model="ir.model.access">
+    <field name="name">Salary User Access</field>
+    <field name="model_id" ref="model_salary"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_salary_admin" model="ir.model.access">
+    <field name="name">Salary Admin Access</field>
+    <field name="model_id" ref="model_salary"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+Access Rights for Stamp
+<record id="access_stamp_user" model="ir.model.access">
+    <field name="name">Stamp User Access</field>
+    <field name="model_id" ref="model_stamp"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_stamp_admin" model="ir.model.access">
+    <field name="name">Stamp Admin Access</field>
+    <field name="model_id" ref="model_stamp"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+Access Rights for Real State
+<record id="access_real_state_user" model="ir.model.access">
+    <field name="name">Real State User Access</field>
+    <field name="model_id" ref="model_real_state"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_real_state_admin" model="ir.model.access">
+    <field name="name">Real State Admin Access</field>
+    <field name="model_id" ref="model_real_state"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+Access Rights for Withdrawal
+<record id="access_withdrawal_user" model="ir.model.access">
+    <field name="name">Withdrawal User Access</field>
+    <field name="model_id" ref="model_withdrawal"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_withdrawal_admin" model="ir.model.access">
+    <field name="name">Withdrawal Admin Access</field>
+    <field name="model_id" ref="model_withdrawal"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+Access Rights for Client Additions Wizard
+<record id="access_client_additions_wizard_user" model="ir.model.access">
+    <field name="name">Client Additions Wizard User Access</field>
+    <field name="model_id" ref="model_client_additions_wizard"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_client_additions_wizard_admin" model="ir.model.access">
+    <field name="name">Client Additions Wizard Admin Access</field>
+    <field name="model_id" ref="model_client_additions_wizard"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+Access Rights for Task
+<record id="access_task_user" model="ir.model.access">
+    <field name="name">Task Wizard User Access</field>
+    <field name="model_id" ref="model_task"/>
+    <field name="group_id" ref="tax_category_user"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="0"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+</record>
+
+<record id="access_task_admin" model="ir.model.access">
+    <field name="name">Task Wizard Admin Access</field>
+    <field name="model_id" ref="model_task"/>
+    <field name="group_id" ref="tax_category_admin"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="1"/>
+</record>
+
+
+    <record id="access_tags_admin" model="ir.model.access">
+        <field name="name">Taxes User Access</field>
+        <field name="model_id" ref="model_task_tag"/>
+        <field name="group_id" ref="tax_category_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="access_document_upload" model="ir.model.access">
+        <field name="name">Taxes User Access</field>
+        <field name="model_id" ref="model_document_upload"/>
+        <field name="group_id" ref="tax_category_admin"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+    -->
+</odoo> 

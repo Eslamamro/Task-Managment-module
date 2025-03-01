@@ -2,7 +2,8 @@
   <data>
 
 
-    <!-- explicit Form view definition -->
+    <!-- INCOME -->
+        <!-- Form -->
         <record id="view_income_form" model="ir.ui.view">
             <field name="name">client.income.form</field>
             <field name="model">income</field>
@@ -23,6 +24,7 @@
             </field>
         </record>
 
+        <!-- List -->
         <record id="view_income_list" model="ir.ui.view">
             <field name="name">client.income.list</field>
             <field name="model">income</field>
@@ -35,6 +37,9 @@
             </field>
         </record>
 
+
+    <!-- VAT -->
+        <!-- Form -->
         <record id="view_vat_form" model="ir.ui.view">
             <field name="name">client.vat.form</field>
             <field name="model">vat</field>
@@ -44,6 +49,7 @@
                     <group>
                         <field name="client_id"/>
                         <field name="date" string="Date"/>
+                        <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </group>
                     <group>
                         <field name="note" string="Notes"/>
@@ -53,6 +59,22 @@
             </field>
         </record>
 
+        <!-- List -->
+        <record id="view_vat_list" model="ir.ui.view">
+            <field name="name">client.vat.list</field>
+            <field name="model">vat</field>
+            <field name="arch" type="xml">
+            <list string="Vat">
+                <field name="client_id"/>
+                <field name="date" string="Date"/>
+                <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </list>
+            </field>
+        </record>
+
+
+    <!-- Salary -->
+        <!-- Form -->
         <record id="view_salary_form" model="ir.ui.view">
             <field name="name">client.salary.form</field>
             <field name="model">salary</field>
@@ -62,16 +84,34 @@
                     <group>
                         <field name="client_id"/>
                         <field name="date" string="Date"/>
+                        <field name="duration" string="Duration"/>
+                        <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </group>
                     <group>
                         <field name="note" string="Notes"/>
-                        <field name="duration" string="Duration"/>
                     </group>
                 </sheet>
             </form>
             </field>
         </record>
 
+        <!-- List -->
+        <record id="view_salary_list" model="ir.ui.view">
+            <field name="name">client.salary.list</field>
+            <field name="model">salary</field>
+            <field name="arch" type="xml">
+            <list string="Salary">
+                <field name="client_id"/>
+                <field name="date" string="Date"/>
+                <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="duration" string="Duration"/>
+            </list>
+            </field>
+        </record>
+
+
+    <!-- Stamp -->
+        <!-- Form -->
         <record id="view_stamp_form" model="ir.ui.view">
             <field name="name">client.stamp.form</field>
             <field name="model">stamp</field>
@@ -81,6 +121,7 @@
                     <group>
                         <field name="client_id"/>
                         <field name="date" string="Date"/>
+                        <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </group>
                     <group>
                         <field name="note" string="Notes"/>
@@ -90,6 +131,22 @@
             </field>
         </record>
 
+        <!-- List -->
+        <record id="view_stamp_list" model="ir.ui.view">
+            <field name="name">client.stamp.list</field>
+            <field name="model">stamp</field>
+            <field name="arch" type="xml">
+            <list string="Stamp">
+                <field name="client_id"/>
+                <field name="date" string="Date"/>
+                <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </list>
+            </field>
+        </record>
+
+
+    <!-- RealState -->
+        <!-- Form -->
         <record id="view_real_state_form" model="ir.ui.view">
             <field name="name">client.realstate.form</field>
             <field name="model">real_state</field>
@@ -99,6 +156,7 @@
                     <group>
                         <field name="client_id"/>
                         <field name="date" string="Date"/>
+                        <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </group>
                     <group>
                         <field name="note" string="Notes"/>
@@ -108,24 +166,55 @@
             </field>
         </record>
 
+        <!-- List -->
+        <record id="view_real_state_list" model="ir.ui.view">
+            <field name="name">client.realstate.list</field>
+            <field name="model">real_state</field>
+            <field name="arch" type="xml">
+            <list string="RealState">
+                <field name="client_id"/>
+                <field name="date" string="Date"/>
+                <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </list>
+            </field>
+        </record>
+
+
+    <!-- Withdrawal -->
+        <!-- Form -->
         <record id="view_withdrawal_form" model="ir.ui.view">
             <field name="name">client.withdrawal.form</field>
             <field name="model">withdrawal</field>
             <field name="arch" type="xml">
-            <form string="Withdrawal">
-                <sheet>
-                    <group>
-                        <field name="client_id"/>
-                        <field name="date" string="Date"/>
-                    </group>
-                    <group>
-                        <field name="note" string="Notes"/>
-                        <field name="duration" string="Duration"/>
-                    </group>
-                </sheet>
-            </form>
+                <form string="Withdrawal">
+                    <sheet>
+                        <group>
+                            <field name="client_id"/>
+                            <field name="date" string="Date"/>
+                            <field name="duration" string="Duration"/>
+                            <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </group>
+                        <group>
+                            <field name="note" string="Notes"/>
+                        </group>
+                    </sheet>
+                </form>
             </field>
         </record>
+
+        <!-- List -->
+        <record id="viewwithdrawal_list" model="ir.ui.view">
+            <field name="name">client.withdrawal.list</field>
+            <field name="model">withdrawal</field>
+            <field name="arch" type="xml">
+            <list string="Withdrawal">
+                <field name="client_id"/>
+                <field name="date" string="Date"/>
+                <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="duration" string="Duration"/>
+            </list>
+            </field>
+        </record>        
 
     </data>
     

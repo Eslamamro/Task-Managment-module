@@ -8,8 +8,96 @@
             <field name="model">task</field>
             <field name="arch" type="xml">
             <form string="To Do">
-                
+                <header>
+                    <field name="date" readonly="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending,done" options="{'clickable': '1', 'fold_field': 'fold'}"/>
+                </header>
+                <sheet>
+                    <field name="client_id" readonly="1"/>
+                        <!-- NootBook  -->
+                        <notebook>
+                            <!-- income page  -->
+                            <page string="Income" invisible="is_income == False">
+                               <field name="income_id" widget="one2many">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="note" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Vat page  -->
+                            <page string="Vat" invisible="is_vat == False">
+                               <field name="vat_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="note" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- Salary page  -->
+                            <page string="Salary" invisible="is_salary == False">
+                               <field name="salary_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="duration"/>
+                                        <field name="note" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page> 
+
+                            <!-- Stamp page  -->
+                            <page string="Stamp" invisible="is_stamp == False">
+                               <field name="stamp_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="note" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>
+
+                            <!-- RealState page  --> 
+                            <page string="Real State" invisible="is_real_state == False">
+                               <field name="real_state_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="note" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page> 
+
+                            <!-- Withdrawal page  -->
+                            <page string="Withdrawal" invisible="is_withdrawal == False">
+                               <field name="withdrawal_id">
+                                    <list>
+                                        <field name="date"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="duration"/>
+                                        <field name="note" invisible="1"/>
+                                    </list>
+                                </field>
+                            </page>  
+                        </notebook>        
+                </sheet>
             </form>
+            </field>
+        </record>
+
+                <!-- List -->
+        <record id="view_taskp_list" model="ir.ui.view">
+            <field name="name">client.task.list</field>
+            <field name="model">task</field>
+            <field name="arch" type="xml">
+            <list string="To-Do">
+                <field name="client_id"/>
+                 <field name="state"/>
+            </list>
             </field>
         </record>
     </data>

@@ -1,6 +1,8 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
+
+
+        <!-- Form -->
         <record id="view_client_data_form" model="ir.ui.view">
             <field name="name">client.data.form</field>
             <field name="model">client.info</field>
@@ -10,11 +12,14 @@
                         <button name="open_client_additions_wizard" type="object" string="Manage Tax Types" class="oe_highlight"/>
                     </header>
                     <sheet>
-                        <h1 class="d-flex flex-row align-items-center">
-                            <field name="name" default_focus="1" placeholder="Client name" style="font-size: min(4vw, 2.2rem);" />
-                        </h1>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                        <div class="oe_title mb24">
+                            <h1>
+                                <field id="name" options="{'line_breaks': False}" widget="text" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandon Freeman" required="True"/>
+                            </h1>
+                        </div>
                             <group string="Personal Info ." class="fw-bold" > 
-                                    <field name="phone_number" placeholder="+20" />
+                                    <field name="phone_number" placeholder="+20" widget="phone"/>
                                     <field name="address" placeholder="city"/>
                                     <field name="tax_number" placeholder="e.g. BE0477472701"/>
                                     <field name="e_invoicing"/>
@@ -23,9 +28,9 @@
                             <group>
                             <group string="Credentials" decoration-bf="1">
                               <field name="username"/>
-                              <field name="email" placeholder="example@gmail.com"/>
-                              <field name="password_1" placeholder=""/>
-                              <field name="password_2"/>
+                              <field name="email" placeholder="example@gmail.com" widget="email" />
+                              <field name="password_1" widget="char" class="password-copy"/>
+                              <field name="password_2" widget="char" class="password-copy"/>
                             </group>
                             <group string="Egyptian Tax Authority">
                                 <a href="https://auth.eta.gov.eg:8080/auth/realms/e-tax/protocol/openid-connect/auth?client_id=etax-sso
@@ -62,10 +67,10 @@
                               </group>
                             </group>
                             <br/>
+                        
+                        <!-- NootBook  -->
                         <notebook>
-
                             <!-- income page  -->
-
                             <page string="Income" invisible="is_income == False">
                                <field name="income_id" widget="one2many">
                                     <list>
@@ -77,66 +82,72 @@
                             </page>
 
                             <!-- Vat page  -->
-
                             <page string="Vat" invisible="is_vat == False">
                                <field name="vat_id">
                                     <list>
                                         <field name="date"/>
-                                        <field name="note" widget="text"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="note" invisible="1"/>
                                     </list>
                                 </field>
                             </page>
 
                             <!-- Salary page  -->
-
                             <page string="Salary" invisible="is_salary == False">
                                <field name="salary_id">
                                     <list>
                                         <field name="date"/>
-                                        <field name="note" widget="text"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="duration"/>
+                                        <field name="note" invisible="1"/>
                                     </list>
                                 </field>
                             </page> 
 
                             <!-- Stamp page  -->
-
                             <page string="Stamp" invisible="is_stamp == False">
                                <field name="stamp_id">
                                     <list>
                                         <field name="date"/>
-                                        <field name="note" widget="text"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="note" invisible="1"/>
                                     </list>
                                 </field>
                             </page>
 
                             <!-- RealState page  --> 
-
                             <page string="Real State" invisible="is_real_state == False">
                                <field name="real_state_id">
                                     <list>
                                         <field name="date"/>
-                                        <field name="note" widget="text"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="note" invisible="1"/>
                                     </list>
                                 </field>
                             </page> 
 
                             <!-- Withdrawal page  -->
-
                             <page string="Withdrawal" invisible="is_withdrawal == False">
                                <field name="withdrawal_id">
                                     <list>
                                         <field name="date"/>
-                                        <field name="note" widget="text"/>
+                                        <field name="summary" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                        <field name="duration"/>
+                                        <field name="note" invisible="1"/>
                                     </list>
                                 </field>
                             </page>  
                         </notebook>
                               
                     </sheet>
+
+                    
                 </form>
             </field>
         </record>
 
+
+        <!-- List -->
         <record id="view_client_data_list" model="ir.ui.view">
             <field name="name">client.data.list</field>
             <field name="model">client.info</field>
@@ -148,6 +159,7 @@
                     <field name="tax_number" string="Tax Number"/>
                     <field name="email" string="Email"/>
                     <field name="e_invoicing" string="E-Invoicing"/>
+                    <field name="portal_request" string="E-Invoicing"/>
                 </list>
             </field>
         </record>

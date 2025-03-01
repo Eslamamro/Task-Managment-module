@@ -10,13 +10,13 @@ class Income(models.Model):
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
     
-    summary = fields.Many2many('task.tag', string='Summary')  # Changed to Many2many
+    summary = fields.Many2many('task.tag', string='Summary')  
     client_id = fields.Many2one('client.info', string='Client Name')
-    task_id = fields.Many2one('task', ondelete='cascade', unique=True)
+    task_id = fields.Many2one('task')
 
-
+    
     def _schedule_activity(self, tax_category):
-
+        """scheduling the activity by bicking the date """
         # (note)add back the withdrawal and the salary in the dic next update'''
 
         current_year = datetime.now().year
@@ -35,12 +35,16 @@ class Income(models.Model):
         if not deadline_date:
             return None  # Exit if no deadline is found
 
+
+
         # Handle multiple dates for quarterly salary tax
         if isinstance(deadline_date, list):
             for date in deadline_date:
                 self._create_activity(datetime(*date))
         else:
             self._create_activity(datetime(*deadline_date))
+    
+
 
     def _create_activity(self, deadline_date):
         """Helper method to create mail.activity."""
@@ -60,6 +64,27 @@ class Income(models.Model):
 
     @api.model
     def create(self, vals):
+
+        # Fetch or create a task for the client
+        client_id = vals.get('client_id')
+        if client_id:
+            # Search for the latest "pending" task for the SAME client
+            pending_task = self.env['task'].search(
+                [('client_id', '=', client_id), ('state', '=', 'pending')],
+                order="create_date desc",
+                limit=1
+            )
+
+            # If a pending task exists for this client, use it. Otherwise, create a new one.
+            if pending_task:
+                task = pending_task
+            else:
+                task = self.env['task'].create({
+                    'client_id': client_id
+                })
+
+            vals['task_id'] = task.id  # Assign the income record to the correct task.
+
         # Create the record
         record = super(Income, self).create(vals)
         # Schedule an activity
@@ -73,9 +98,9 @@ class Vat(models.Model):
 
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
-
+    summary = fields.Many2many('task.tag', string='Summary')
     client_id = fields.Many2one('client.info')  
-
+    task_id = fields.Many2one('task')
 
     def _schedule_activity(self, tax_category):
         current_year = datetime.now().year
@@ -130,7 +155,7 @@ class Vat(models.Model):
 class Salary(models.Model):
     _name = 'salary'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-
+    summary = fields.Many2many('task.tag', string='Summary')
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
     duration = fields.Selection(
@@ -140,11 +165,12 @@ class Salary(models.Model):
             ('quarter', 'Quarter'),
 
         ],
-        string='Salary Duration',
+        string='Duration',
         default=False
     ) 
 
     client_id = fields.Many2one('client.info')
+    task_id = fields.Many2one('task', ndelete='cascade', unique=True)
 
     def _schedule_activity(self, tax_category):
         current_year = datetime.now().year
@@ -159,14 +185,14 @@ class Salary(models.Model):
             'salary': {
                 'monthly': (current_year, current_month, 20),
                 'yearly': (current_year, 12, 15),
-                'quarter': [(current_year, month, 20) for month in [3, 6, 9, 12]]
+                'quarter': [(current_year, month, 15) for month in [3, 6, 9, 12]]
             }.get(self.duration, None),  # Return None if duration is None
             'withdrawal': {
-            'jan-mar': (current_year, 3, 20),
-            'apr-jun': (current_year, 6, 20),
-            'jul-sep': (current_year, 9, 20),
-            'oct-dec': (current_year, 12, 20),
-            }.get(self.duration, [(current_year, month, 20) for month in [3, 6, 9, 12]]),  # If None, set for all quarters
+            'jan-mar': (current_year, 3, 15),
+            'apr-jun': (current_year, 6, 15),
+            'jul-sep': (current_year, 9, 15),
+            'oct-dec': (current_year, 12, 15),
+            }.get(self.duration, [(current_year, month, 15) for month in [3, 6, 9, 12]]),  # If None, set for all quarters
         }
 
         deadline_date = tax_deadlines.get(tax_category)
@@ -213,9 +239,10 @@ class Stamp(models.Model):
 
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
-
+    summary = fields.Many2many('task.tag', string='Summary')
     client_id = fields.Many2one('client.info')  
-
+    task_id = fields.Many2one('task')
+    
     def _schedule_activity(self, tax_category):
         current_year = datetime.now().year
         current_month = datetime.now().month
@@ -272,8 +299,9 @@ class RealState(models.Model):
 
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
-
+    summary = fields.Many2many('task.tag', string='Summary')
     client_id = fields.Many2one('client.info')    
+    task_id = fields.Many2one('task')
 
     def _schedule_activity(self, tax_category):
         current_year = datetime.now().year
@@ -331,6 +359,7 @@ class Withdrawal(models.Model):
 
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
+    summary = fields.Many2many('task.tag', string='Summary')
     duration = fields.Selection(
             [
                 ('jan-mar', 'January - March'),
@@ -338,10 +367,11 @@ class Withdrawal(models.Model):
                 ('jul-sep', 'July - September'),
                 ('oct-dec', 'October - December'),
             ],
-            string='Withdrawal Duration',
+            string='Duration',
             default=None
         )
     client_id = fields.Many2one('client.info')    
+    task_id = fields.Many2one('task')
 
     def _schedule_activity(self, tax_category):
         current_year = datetime.now().year
@@ -352,18 +382,18 @@ class Withdrawal(models.Model):
             'income': (current_year, 12, 15),
             'stamp': (current_year, 12, 15),
             'real_state': (current_year, 12, 15),
-            'vat': (current_year, current_month, 20),
+            'vat': (current_year, current_month, 15),
             'salary': {
-                'monthly': (current_year, current_month, 20),
+                'monthly': (current_year, current_month, 15),
                 'yearly': (current_year, 12, 15),
                 'quarter': [(current_year, month, 20) for month in [3, 6, 9, 12]]
             }.get(self.duration, None),  # Return None if duration is None
             'withdrawal': {
-            'jan-mar': (current_year, 3, 20),
-            'apr-jun': (current_year, 6, 20),
-            'jul-sep': (current_year, 9, 20),
-            'oct-dec': (current_year, 12, 20),
-            }.get(self.duration, [(current_year, month, 20) for month in [3, 6, 9, 12]]),  # If None, set for all quarters
+            'jan-mar': (current_year, 3, 15),
+            'apr-jun': (current_year, 6, 15),
+            'jul-sep': (current_year, 9, 15),
+            'oct-dec': (current_year, 12, 15),
+            }.get(self.duration, [(current_year, month, 15) for month in [3, 6, 9, 12]]),  # If None, set for all quarters
         }
 
         deadline_date = tax_deadlines.get(tax_category)
@@ -402,6 +432,7 @@ class Withdrawal(models.Model):
         record._schedule_activity(tax_category='withdrawal')
 
         return record
+
 
 class TaskTag(models.Model):
     _name = 'task.tag'
