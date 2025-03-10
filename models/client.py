@@ -6,7 +6,7 @@ class Client(models.Model):
 
     # Client Information
     name = fields.Char(size=50, string='Name')
-    image_1920 = fields.Image("Image", max_width=1920, max_height=1920)
+    image_1920 = fields.Binary(max_width=1920, max_height=1920)
     phone_number = fields.Char(size=11, string='Phone Number')
     address = fields.Char(string='Address')
     tax_number = fields.Char(string='Tax ID')

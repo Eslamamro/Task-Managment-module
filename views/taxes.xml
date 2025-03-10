@@ -33,6 +33,10 @@
                 <field name="client_id"/>
                 <field name="date" string="Date"/>
                 <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <button name="action_done_activity" type="object" string="Done" class="btn btn-link" icon="fa-check"/>
+                <button name="action_cancel_activity" type="object" string="Cancel" 
+                        class="btn btn-link text-danger"
+                        icon="fa-times"/>
             </list>
             </field>
         </record>
@@ -68,6 +72,10 @@
                 <field name="client_id"/>
                 <field name="date" string="Date"/>
                 <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <button name="action_done_activity" type="object" string="Done" class="btn btn-link" icon="fa-check"/>
+                <button name="action_cancel_activity" type="object" string="Cancel" 
+                        class="btn btn-link text-danger"
+                        icon="fa-times"/>
             </list>
             </field>
         </record>
@@ -105,6 +113,10 @@
                 <field name="date" string="Date"/>
                 <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="duration" string="Duration"/>
+                <button name="action_done_activity" type="object" string="Done" class="btn btn-link" icon="fa-check"/>
+                <button name="action_cancel_activity" type="object" string="Cancel" 
+                        class="btn btn-link text-danger"
+                        icon="fa-times"/>
             </list>
             </field>
         </record>
@@ -140,6 +152,10 @@
                 <field name="client_id"/>
                 <field name="date" string="Date"/>
                 <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <button name="action_done_activity" type="object" string="Done" class="btn btn-link" icon="fa-check"/>
+                <button name="action_cancel_activity" type="object" string="Cancel" 
+                        class="btn btn-link text-danger"
+                        icon="fa-times"/>
             </list>
             </field>
         </record>
@@ -175,6 +191,10 @@
                 <field name="client_id"/>
                 <field name="date" string="Date"/>
                 <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <button name="action_done_activity" type="object" string="Done" class="btn btn-link" icon="fa-check"/>
+                <button name="action_cancel_activity" type="object" string="Cancel" 
+                        class="btn btn-link text-danger"
+                        icon="fa-times"/>
             </list>
             </field>
         </record>
@@ -212,6 +232,10 @@
                 <field name="date" string="Date"/>
                 <field name="summary" string="Summary"  widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="duration" string="Duration"/>
+                <button name="action_done_activity" type="object" string="Done" class="btn btn-link" icon="fa-check"/>
+                <button name="action_cancel_activity" type="object" string="Cancel" 
+                        class="btn btn-link text-danger"
+                        icon="fa-times"/>
             </list>
             </field>
         </record>        

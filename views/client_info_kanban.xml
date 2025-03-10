@@ -1,0 +1,37 @@
+<odoo>
+<data>
+
+
+        <!-- List -->
+        <record id="view_client_data_kanban" model="ir.ui.view">
+            <field name="name">client.data.kanban</field>
+            <field name="model">client.info</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="portal_request"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone_number"/>
+                    <field name="address"/>
+                    
+                    <templates>
+                        <t t-name="card" class="flex-row">
+                            <aside class="o_kanban_aside_full">
+                                <field name="image_1920" class="o_kanban_image_fill w-100" widget="image" options="{'img_class': 'object-fit-cover'}" alt="Client Image"/>
+                            </aside>
+                            <main class="ps-2 ps-md-0">
+                                <field name="name" class="fw-bold"/>
+                                <field name="email" widget="email"/>
+                                <field name="address"/>
+                                <div t-if="record.phone_number.raw_value">Phone: <field name="phone_number"/></div>
+                                <div>Portal Request: <field name="portal_request"/></div>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+</data>
+</odoo>

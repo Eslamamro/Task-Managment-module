@@ -12,7 +12,7 @@
                         <button name="open_client_additions_wizard" type="object" string="Manage Tax Types" class="oe_highlight"/>
                     </header>
                     <sheet>
-                        <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
+                        <field name="image_1920" widget="image" class="oe_avatar" />
                         <div class="oe_title mb24">
                             <h1>
                                 <field id="name" options="{'line_breaks': False}" widget="text" class="text-break" name="name" default_focus="1" placeholder="e.g. Brandon Freeman" required="True"/>
@@ -147,22 +147,7 @@
         </record>
 
 
-        <!-- List -->
-        <record id="view_client_data_list" model="ir.ui.view">
-            <field name="name">client.data.list</field>
-            <field name="model">client.info</field>
-            <field name="arch" type="xml">
-                <list string="Client Data">
-                    <field name="name" string="Client Name"/>
-                    <field name="phone_number" string="Phone Number"/>
-                    <field name="address" string="Address"/>
-                    <field name="tax_number" string="Tax Number"/>
-                    <field name="email" string="Email"/>
-                    <field name="e_invoicing" string="E-Invoicing"/>
-                    <field name="portal_request" string="E-Invoicing"/>
-                </list>
-            </field>
-        </record>
+
 
     <!-- actions opening views on models -->
 <!--

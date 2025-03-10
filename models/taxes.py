@@ -9,14 +9,17 @@ class Income(models.Model):
     
     date = fields.Date(string='Date')
     note = fields.Html(string='Note')
+    color = fields.Integer("Color")
+
     
     summary = fields.Many2many('task.tag', string='Summary')  
     client_id = fields.Many2one('client.info', string='Client Name')
     task_id = fields.Many2one('task')
 
+
     
     def _schedule_activity(self, tax_category):
-        """scheduling the activity by bicking the date """
+        """Scheduling automated activities depending on the type of tax """
         # (note)add back the withdrawal and the salary in the dic next update'''
 
         current_year = datetime.now().year
@@ -61,10 +64,27 @@ class Income(models.Model):
             'user_id': self.env.user.id,
         })
 
+    def action_done_activity(self):
+        """Mark the related activity as Done."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.action_done()
+
+    def action_cancel_activity(self):
+        """Cancel the related activity (unlink it)."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.unlink()
 
     @api.model
     def create(self, vals):
-
+        """Ensures that the task gets created with its related activity"""
         # Fetch or create a task for the client
         client_id = vals.get('client_id')
         if client_id:
@@ -142,8 +162,47 @@ class Vat(models.Model):
         })
 
 
+    def action_done_activity(self):
+        """Mark the related activity as Done."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.action_done()
+
+    def action_cancel_activity(self):
+        """Cancel the related activity (unlink it)."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.unlink()
+
     @api.model
     def create(self, vals):
+
+        # Fetch or create a task for the client
+        client_id = vals.get('client_id')
+        if client_id:
+            # Search for the latest "pending" task for the SAME client
+            pending_task = self.env['task'].search(
+                [('client_id', '=', client_id), ('state', '=', 'pending')],
+                order="create_date desc",
+                limit=1
+            )
+
+            # If a pending task exists for this client, use it. Otherwise, create a new one.
+            if pending_task:
+                task = pending_task
+            else:
+                task = self.env['task'].create({
+                    'client_id': client_id
+                })
+
+            vals['task_id'] = task.id  # Assign the income record to the correct task.
+
         # Create the record
         record = super(Vat, self).create(vals)
         # Schedule an activity
@@ -170,7 +229,7 @@ class Salary(models.Model):
     ) 
 
     client_id = fields.Many2one('client.info')
-    task_id = fields.Many2one('task', ndelete='cascade', unique=True)
+    task_id = fields.Many2one('task')
 
     def _schedule_activity(self, tax_category):
         current_year = datetime.now().year
@@ -223,8 +282,47 @@ class Salary(models.Model):
         })
 
 
+    def action_done_activity(self):
+        """Mark the related activity as Done."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.action_done()
+
+    def action_cancel_activity(self):
+        """Cancel the related activity (unlink it)."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.unlink()
+
     @api.model
     def create(self, vals):
+
+        # Fetch or create a task for the client
+        client_id = vals.get('client_id')
+        if client_id:
+            # Search for the latest "pending" task for the SAME client
+            pending_task = self.env['task'].search(
+                [('client_id', '=', client_id), ('state', '=', 'pending')],
+                order="create_date desc",
+                limit=1
+            )
+
+            # If a pending task exists for this client, use it. Otherwise, create a new one.
+            if pending_task:
+                task = pending_task
+            else:
+                task = self.env['task'].create({
+                    'client_id': client_id
+                })
+
+            vals['task_id'] = task.id  # Assign the income record to the correct task.
+
         # Create the record
         record = super(Salary, self).create(vals)
         # Schedule an activity
@@ -282,9 +380,47 @@ class Stamp(models.Model):
             'user_id': self.env.user.id,
         })
 
+    def action_done_activity(self):
+        """Mark the related activity as Done."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.action_done()
+
+    def action_cancel_activity(self):
+        """Cancel the related activity (unlink it)."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.unlink()
 
     @api.model
     def create(self, vals):
+
+        # Fetch or create a task for the client
+        client_id = vals.get('client_id')
+        if client_id:
+            # Search for the latest "pending" task for the SAME client
+            pending_task = self.env['task'].search(
+                [('client_id', '=', client_id), ('state', '=', 'pending')],
+                order="create_date desc",
+                limit=1
+            )
+
+            # If a pending task exists for this client, use it. Otherwise, create a new one.
+            if pending_task:
+                task = pending_task
+            else:
+                task = self.env['task'].create({
+                    'client_id': client_id
+                })
+
+            vals['task_id'] = task.id  # Assign the income record to the correct task.
+
         # Create the record
         record = super(Stamp, self).create(vals)
         # Schedule an activity
@@ -342,9 +478,47 @@ class RealState(models.Model):
             'user_id': self.env.user.id,
         })
 
+    def action_done_activity(self):
+        """Mark the related activity as Done."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.action_done()
+
+    def action_cancel_activity(self):
+        """Cancel the related activity (unlink it)."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.unlink()
 
     @api.model
     def create(self, vals):
+
+        # Fetch or create a task for the client
+        client_id = vals.get('client_id')
+        if client_id:
+            # Search for the latest "pending" task for the SAME client
+            pending_task = self.env['task'].search(
+                [('client_id', '=', client_id), ('state', '=', 'pending')],
+                order="create_date desc",
+                limit=1
+            )
+
+            # If a pending task exists for this client, use it. Otherwise, create a new one.
+            if pending_task:
+                task = pending_task
+            else:
+                task = self.env['task'].create({
+                    'client_id': client_id
+                })
+
+            vals['task_id'] = task.id  # Assign the income record to the correct task.
+
         # Create the record
         record = super(RealState, self).create(vals)
         # Schedule an activity
@@ -423,9 +597,47 @@ class Withdrawal(models.Model):
             'user_id': self.env.user.id,
         })
 
+    def action_done_activity(self):
+        """Mark the related activity as Done."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.action_done()
 
+    def action_cancel_activity(self):
+        """Cancel the related activity (unlink it)."""
+        activities = self.env['mail.activity'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id),
+        ])
+        for activity in activities:
+            activity.unlink()
+            
     @api.model
     def create(self, vals):
+
+        # Fetch or create a task for the client
+        client_id = vals.get('client_id')
+        if client_id:
+            # Search for the latest "pending" task for the SAME client
+            pending_task = self.env['task'].search(
+                [('client_id', '=', client_id), ('state', '=', 'pending')],
+                order="create_date desc",
+                limit=1
+            )
+
+            # If a pending task exists for this client, use it. Otherwise, create a new one.
+            if pending_task:
+                task = pending_task
+            else:
+                task = self.env['task'].create({
+                    'client_id': client_id
+                })
+
+            vals['task_id'] = task.id  # Assign the income record to the correct task.
+
         # Create the record
         record = super(Withdrawal, self).create(vals)
         # Schedule an activity

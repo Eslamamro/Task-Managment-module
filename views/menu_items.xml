@@ -6,7 +6,7 @@
             <record model="ir.actions.act_window" id="client_info_action_window">
                 <field name="name">Client Info.</field>
                 <field name="res_model">client.info</field>
-                <field name="view_mode">list,form</field>
+                <field name="view_mode">kanban,list,form</field>
             </record>
 
             <!-- To do Action -->

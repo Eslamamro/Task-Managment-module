@@ -1,0 +1,24 @@
+<odoo>
+<data>
+
+
+        <!-- List -->
+        <record id="view_client_data_list" model="ir.ui.view">
+            <field name="name">client.data.list</field>
+            <field name="model">client.info</field>
+            <field name="arch" type="xml">
+                <list string="Client Data">
+                    <field name="name" string="Client Name"/>
+                    <field name="phone_number" string="Phone Number"/>
+                    <field name="tax_number" string="Tax Number"/>
+                    <field name="email" string="Email"/>
+                    <field name="e_invoicing" string="E-Invoicing"/>
+                    <field name="portal_request" string="Portal Request"/>
+                    <field name="address" string="Address"/>
+                </list>
+            </field>
+        </record>
+
+
+</data>
+</odoo>
